@@ -45,3 +45,52 @@ void delList(List *list){
         delNode(list);
     }
 }
+
+void printList(List *list){
+    Node *current = list->head;
+    while(current){
+        printf("%d", current->data);
+        current = current->next;
+    }
+}
+
+void llconcat(List *list1, List *list2){
+    Node *n1 = list2->head;
+    Node *current = list1->head;
+    while(current->next){
+        current = current->next;
+    }
+    current->next = n1;
+    free(list2);
+}
+
+void addNodep(List *list, int newData, int position){
+    Node *newNode = malloc(sizeof(Node));
+    if(position >= list->lenght){
+        exit(-1);
+    }
+    Node *current = list->head;
+    int i = 0;
+    while(i < position){
+        current = current->next;
+        i++;
+    }
+    newNode->next = current->next;
+    current->next = newNode;
+}
+
+void delNodep(List *list, int position){
+    if(position >= list->lenght){
+        exit(-1);
+    }
+    Node *current = list->head;
+    int i = 0;
+    while(i < position){
+        current = current->next;
+        i++;
+    }
+    Node *todelete = current->next;
+    current->next = todelete->next;
+    free(todelete);
+}
+
