@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "hello.c"
+#include "functions.c"
 
 
 int main()
