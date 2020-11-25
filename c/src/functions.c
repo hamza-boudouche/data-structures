@@ -55,6 +55,7 @@ void printList(List *list){
 }
 
 void llconcat(List *list1, List *list2){
+    list1->lenght += list2->lenght; 
     Node *n1 = list2->head;
     Node *current = list1->head;
     while(current->next){
@@ -66,7 +67,7 @@ void llconcat(List *list1, List *list2){
 
 void addNodep(List *list, int newData, int position){
     Node *newNode = malloc(sizeof(Node));
-    if(position >= list->lenght){
+    if(position >= list->lenght || newNode == NULL){
         exit(-1);
     }
     Node *current = list->head;
@@ -77,6 +78,7 @@ void addNodep(List *list, int newData, int position){
     }
     newNode->next = current->next;
     current->next = newNode;
+    list->lenght++;
 }
 
 void delNodep(List *list, int position){
@@ -92,5 +94,6 @@ void delNodep(List *list, int position){
     Node *todelete = current->next;
     current->next = todelete->next;
     free(todelete);
+    list->lenght--;
 }
 
