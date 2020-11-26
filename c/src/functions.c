@@ -67,7 +67,7 @@ void llconcat(List *list1, List *list2){
 
 void addNodep(List *list, int newData, int position){
     Node *newNode = malloc(sizeof(Node));
-    if(position >= list->lenght || newNode == NULL){
+    if(position > list->lenght || newNode == NULL){
         exit(-1);
     }
     Node *current = list->head;
