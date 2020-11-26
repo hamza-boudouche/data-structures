@@ -1,5 +1,7 @@
 #include "structures.h"
 #include <stdlib.h>
+#ifndef functions
+#define functions
 
 
 List *init(){
@@ -47,9 +49,13 @@ void delList(List *list){
 }
 
 void printList(List *list){
+    if(list == NULL){
+        exit(-1);
+    }
     Node *current = list->head;
+    printf("\n");
     while(current){
-        printf("%d", current->data);
+        printf("%d\t", current->data);
         current = current->next;
     }
 }
@@ -67,12 +73,13 @@ void llconcat(List *list1, List *list2){
 
 void addNodep(List *list, int newData, int position){
     Node *newNode = malloc(sizeof(Node));
+    newNode->data = newData;
     if(position > list->lenght || newNode == NULL){
         exit(-1);
     }
     Node *current = list->head;
     int i = 0;
-    while(i < position){
+    while(i < position - 1){
         current = current->next;
         i++;
     }
@@ -87,7 +94,7 @@ void delNodep(List *list, int position){
     }
     Node *current = list->head;
     int i = 0;
-    while(i < position){
+    while(i < position - 1){
         current = current->next;
         i++;
     }
@@ -97,3 +104,4 @@ void delNodep(List *list, int position){
     list->lenght--;
 }
 
+#endif
