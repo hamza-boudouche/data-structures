@@ -24,8 +24,11 @@ class linkedList:
         if(self.head):
             current = self.head
             while(current):
-                print(current.data)
+                print(current.data, end="\t")
                 current = current.next
+            print("\n")
+        else:
+            print("None")
     
     def addNode(self, data, position):     #adds node in the specified position
         newNode = node(data)
@@ -61,6 +64,12 @@ class linkedList:
             i += 1
         preceeding = current.next   # skip node in specified position 
 
+    def find(self, data):
+        current = self.head
+        while(current != None):
+            if current.data == data:
+                return True
+        return False
 
 
 
