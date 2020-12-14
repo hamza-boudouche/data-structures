@@ -81,6 +81,7 @@ public class Tree {
 
     public void delete(int key) {
         //code
+        //needs inorder successor of node to delete
     }
 
     public int size() {
@@ -96,10 +97,14 @@ public class Tree {
         return 1;
     }
 
+    //depth first traversals: 
+    
+    //inOrder traversal
     public ArrayList<Integer> inOrder() {
-        final ArrayList<Integer> arr = new ArrayList<Integer>(0);
-        
-        
+        ArrayList<Integer> arr = new ArrayList<Integer>(0);
+        //code
+        //needs variable arr to stay the same after each iteration of inOrder methode
+        //or alternatively make a nested methode and run it recursively or with a loop
         return arr;
     }
 }
