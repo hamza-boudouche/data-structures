@@ -1,4 +1,5 @@
 /*
+to do list:
 *implement node class
 *implement tree class
 *height of tree
@@ -110,6 +111,8 @@ class Tree {
         }
         return !!currentRow.length;
     }
+
+    //this doesn't work; infinite while loop
     delete(node) {
         if (!(this.isIn(node))) {
             return;
@@ -121,24 +124,16 @@ class Tree {
         let nextRow = [];
         while (!nextRow.includes(node)) {
             for (let n of currentRow) {
-                //console.log(n.data);
-                //console.log(n.leftChild);
                 if (n.leftChild != null) {
-                    //console.log("in1");
                     nextRow.push(n.leftChild);
                 }
                 if (n.rightChild != null) {
-                    //console.log("in2");
                     nextRow.push(n.rightChild);
                 }
                 if (nextRow.includes(node)) {
                     break;
                 }
                 i++;
-                //console.log("current");
-                //console.log(currentRow);
-                //console.log("next")
-                //console.log(nextRow);
             }
             currentRow = nextRow;
             nextRow = [];
@@ -152,6 +147,7 @@ class Tree {
     }
 }
 
+//testing...
 let n5 = new Node(5);
 let n4 = new Node(4);
 let n3 = new Node(3);

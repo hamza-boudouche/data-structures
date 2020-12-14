@@ -44,7 +44,7 @@ class linkedList:
         newNode.next = current.next
         current.next = newNode
     
-    def LLConcat(self, list):
+    def LLConcat(self, list):   #concatenate 2 listes
         newNode = list.head
         current = self.head
         while(current):
@@ -70,8 +70,5 @@ class linkedList:
             if current.data == data:
                 return True
         return False
-
-
-
 
 

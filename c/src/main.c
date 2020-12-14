@@ -7,6 +7,7 @@
 
 int main()
 {
+	//testing ...
 	printf("Hello World \n");
 	List *l = init();
 	addNode(l, 4);
@@ -34,8 +35,6 @@ int main()
 
 	printList(l);
 
-	//addNodep(l, 10, 5);
-	//printf("%d", l->lenght);
 	enfiler(l, 10);
 
 	printList(l);

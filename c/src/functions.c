@@ -4,6 +4,7 @@
 #define functions
 
 
+//acts as a constructor of linkedList
 List *init(){
     List *list = malloc(sizeof(List));
 
@@ -16,6 +17,7 @@ List *init(){
     return list;
 }
 
+//add node in the first position in the linked list
 void addNode(List *list, int newData){
     Node *newNode = malloc(sizeof(Node));
     
@@ -31,6 +33,7 @@ void addNode(List *list, int newData){
     list->lenght++;
 }
 
+//delete first node of linkedList
 void delNode(List *list){
     if(list->lenght == 0){
         free(list);
@@ -42,6 +45,7 @@ void delNode(List *list){
     list->lenght--;
 }
 
+//delete list; free all nodes
 void delList(List *list){
     while(list->lenght >= 0){
         delNode(list);
@@ -60,6 +64,7 @@ void printList(List *list){
     }
 }
 
+//concatenate 2 linked listes
 void llconcat(List *list1, List *list2){
     list1->lenght += list2->lenght; 
     Node *n1 = list2->head;
@@ -71,6 +76,7 @@ void llconcat(List *list1, List *list2){
     free(list2);
 }
 
+//add node in a certain position
 void addNodep(List *list, int newData, int position){
     Node *newNode = malloc(sizeof(Node));
     newNode->data = newData;
@@ -88,6 +94,7 @@ void addNodep(List *list, int newData, int position){
     list->lenght++;
 }
 
+//delete node in a certain position
 void delNodep(List *list, int position){
     if(position >= list->lenght){
         exit(-1);
