@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
 public class Node {
-    private int data;
-    private Node leftChild;
-    private Node rightChild;
+    protected int data;
+    protected Node leftChild;
+    protected Node rightChild;
 
     Node(int key){
         this.data = key;
+        this.leftChild = null;
+        this.rightChild = null;
     }
 
     public int getData() {
@@ -70,4 +72,34 @@ public class Node {
         t.setRoot(this.getLeftChild());
         return t;
     }
+}
+
+
+class opNode extends Node{
+    enum Operation {
+        ADD,
+        SUB,
+        MUL,
+        DIV
+    }
+
+    private Operation operation = null;
+
+    opNode(int key){
+        super(key);
+    }
+
+    opNode(int key, Operation operation){
+        super(key);
+        this.operation = operation;
+    }
+
+    public Operation getOperation() {
+        return operation;
+    }
+
+    public void setOperation(Operation operation) {
+        this.operation = operation;
+    }
+
 }
