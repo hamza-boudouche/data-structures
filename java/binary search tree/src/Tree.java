@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Tree {
     private Node root;
@@ -45,6 +46,7 @@ public class Tree {
     }
 
     public boolean contains(int key) {
+        // this supposes that the tree is a BST
         if (this.getRoot().getData() == key) {
             return true;
         } else if (this.getRoot().getData() < key) {
@@ -61,6 +63,7 @@ public class Tree {
     }
 
     public void insert(int key) {
+        // tree is BST
         if (!this.contains(key)) {
             if (this.getRoot().getData() > key) {
                 if (this.getRoot().getLeftChild() != null) {
@@ -79,8 +82,32 @@ public class Tree {
     }
 
     public void delete(int key) {
-        // code
-        // needs inorder successor of node to delete
+        if (this.contains(key)) {
+            Node node = new opNode(key);
+            Node nextNode = new opNode(key);
+            for (opNode opnode : ((expTree) this).breadthFirst()) {
+                if (opnode.getData() == key) {
+                    nextNode = (Node) opnode;
+                }
+            }
+            Iterator<opNode> i = ((expTree) this).breadthFirst().iterator();
+            node = i.next();
+            while (i.next().getData() != key) {
+                node = i.next();
+            }
+
+            if (node.getLeftChild() != null && node.getRightChild() != null) {
+                nextNode = (Node) i.next();
+                node.setData(nextNode.getData());
+                nextNode = null;
+            } else if (node.getLeftChild() != null) {
+                node.setData(node.getLeftChild().getData());
+            } else if (node.getRightChild() != null) {
+                node.setData(node.getRightChild().getData());
+            } else {
+                node = null;
+            }
+        }
     }
 
     public int size() {
@@ -100,25 +127,27 @@ public class Tree {
 
     // inOrder traversal
     private ArrayList<Integer> inOrderarr = new ArrayList<Integer>(0);
+
     public ArrayList<Integer> inOrder() {
-        if(this.getRoot().getLeftChild() != null){
+        if (this.getRoot().getLeftChild() != null) {
             inOrderarr.addAll(this.getRoot().getLeftSubTree().inOrder());
         }
         inOrderarr.add(this.getRoot().getData());
-        if(this.getRoot().getRightChild() != null){
+        if (this.getRoot().getRightChild() != null) {
             inOrderarr.addAll(this.getRoot().getRightSubTree().inOrder());
         }
         return inOrderarr;
     }
-    
+
     // preOrder traversal
     private ArrayList<Integer> preOrderarr = new ArrayList<Integer>(0);
+
     public ArrayList<Integer> preOrder() {
         preOrderarr.add(this.getRoot().getData());
-        if(this.getRoot().getLeftChild() != null){
+        if (this.getRoot().getLeftChild() != null) {
             preOrderarr.addAll(this.getRoot().getLeftSubTree().preOrder());
         }
-        if(this.getRoot().getRightChild() != null){
+        if (this.getRoot().getRightChild() != null) {
             preOrderarr.addAll(this.getRoot().getRightSubTree().preOrder());
         }
         return preOrderarr;
@@ -126,11 +155,12 @@ public class Tree {
 
     // postOrder traversal
     private ArrayList<Integer> postOrderarr = new ArrayList<Integer>(0);
+
     public ArrayList<Integer> postOrder() {
-        if(this.getRoot().getLeftChild() != null){
+        if (this.getRoot().getLeftChild() != null) {
             postOrderarr.addAll(this.getRoot().getLeftSubTree().postOrder());
         }
-        if(this.getRoot().getRightChild() != null){
+        if (this.getRoot().getRightChild() != null) {
             postOrderarr.addAll(this.getRoot().getRightSubTree().postOrder());
         }
         postOrderarr.add(this.getRoot().getData());
@@ -159,13 +189,17 @@ class expTree extends Tree {
         }
         switch (this.root.getOperation()) {
             case ADD:
-                return ((expTree) this.getRoot().getLeftSubTree()).calculate() + ((expTree) this.getRoot().getRightSubTree()).calculate();
+                return ((expTree) this.getRoot().getLeftSubTree()).calculate()
+                        + ((expTree) this.getRoot().getRightSubTree()).calculate();
             case DIV:
-                return ((expTree) this.getRoot().getLeftSubTree()).calculate() / ((expTree) this.getRoot().getRightSubTree()).calculate();
+                return ((expTree) this.getRoot().getLeftSubTree()).calculate()
+                        / ((expTree) this.getRoot().getRightSubTree()).calculate();
             case MUL:
-                return ((expTree) this.getRoot().getLeftSubTree()).calculate() * ((expTree) this.getRoot().getRightSubTree()).calculate();
+                return ((expTree) this.getRoot().getLeftSubTree()).calculate()
+                        * ((expTree) this.getRoot().getRightSubTree()).calculate();
             case SUB:
-                return ((expTree) this.getRoot().getLeftSubTree()).calculate() - ((expTree) this.getRoot().getRightSubTree()).calculate();
+                return ((expTree) this.getRoot().getLeftSubTree()).calculate()
+                        - ((expTree) this.getRoot().getRightSubTree()).calculate();
             default:
                 return 0;
         }
@@ -176,12 +210,13 @@ class expTree extends Tree {
 
     // inOrder traversal
     private ArrayList<opNode> inOrderarr = new ArrayList<opNode>(0);
+
     public ArrayList<opNode> opinOrder() {
-        if(this.getRoot().getLeftChild() != null){
+        if (this.getRoot().getLeftChild() != null) {
             inOrderarr.addAll(((expTree) this.getRoot().getLeftSubTree()).opinOrder());
         }
         inOrderarr.add(this.getRoot());
-        if(this.getRoot().getRightChild() != null){
+        if (this.getRoot().getRightChild() != null) {
             inOrderarr.addAll(((expTree) this.getRoot().getRightSubTree()).opinOrder());
         }
         return inOrderarr;
@@ -189,12 +224,13 @@ class expTree extends Tree {
 
     // preOrder traversal
     private ArrayList<opNode> preOrderarr = new ArrayList<opNode>(0);
+
     public ArrayList<opNode> oppreOrder() {
-        if(this.getRoot().getLeftChild() != null){
+        if (this.getRoot().getLeftChild() != null) {
             preOrderarr.addAll(((expTree) this.getRoot().getLeftSubTree()).oppreOrder());
         }
         preOrderarr.add(this.getRoot());
-        if(this.getRoot().getRightChild() != null){
+        if (this.getRoot().getRightChild() != null) {
             preOrderarr.addAll(((expTree) this.getRoot().getRightSubTree()).oppreOrder());
         }
         return preOrderarr;
@@ -202,14 +238,51 @@ class expTree extends Tree {
 
     // postOrder traversal
     private ArrayList<opNode> postOrderarr = new ArrayList<opNode>(0);
+
     public ArrayList<opNode> oppostOrder() {
-        if(this.getRoot().getLeftChild() != null){
+        if (this.getRoot().getLeftChild() != null) {
             postOrderarr.addAll(((expTree) this.getRoot().getLeftSubTree()).oppostOrder());
         }
         postOrderarr.add(this.getRoot());
-        if(this.getRoot().getRightChild() != null){
+        if (this.getRoot().getRightChild() != null) {
             postOrderarr.addAll(((expTree) this.getRoot().getRightSubTree()).oppostOrder());
         }
         return postOrderarr;
+    }
+
+    // Breadth First or Level Order Traversal
+
+    private ArrayList<opNode> breadthFirstArr = new ArrayList<opNode>(0);
+
+    public ArrayList<opNode> breadthFirst() {
+        ArrayList<opNode> current = new ArrayList<opNode>(0);
+        current.add(this.getRoot());
+        ArrayList<opNode> next = new ArrayList<opNode>(0);
+        while (current.size() != 0) {
+            breadthFirstArr.addAll(current);
+            for (opNode node : current) {
+                if (node.getLeftChild() != null) {
+                    next.add((opNode) node.getLeftChild());
+                }
+                if (node.getRightChild() != null) {
+                    next.add((opNode) node.getRightChild());
+                }
+            }
+            current = new ArrayList<opNode>(next);
+            next = new ArrayList<opNode>(0);
+        }
+        return breadthFirstArr;
+    }
+
+    public void zeroAddressInstructions(){
+        for (opNode opNode : this.oppreOrder()) {
+            if(opNode.getOperation() != null){
+                System.out.println(opNode.getOperation());
+            }
+            else{
+                System.out.print("PUSH ");
+                System.out.println(opNode.getData());
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         //testing methodes ...
+        //initialisation of objects of type Node and Tree should be done using the constructors opNode() and expTree
+        //so that downcasting a Node or Tree object doesn't throw an error
     }
 }
 

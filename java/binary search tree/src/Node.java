@@ -37,26 +37,58 @@ public class Node {
 
     //get the values of the left sub-tree of a given node
     //used in Tree.isSearchTree()
-    public ArrayList<Integer> getVLeftSubTree() {
-        ArrayList<Integer> arr = new ArrayList<Integer>(0);
-        Node current = this;
-        while(current.leftChild != null){
-            arr.add(current.getLeftChild().getData());
-            current = current.getLeftChild();
+    public ArrayList<Integer> getVLeftSubTree() { //this needs to be fixed
+        ArrayList<Node> nodes = new ArrayList<Node>(0);
+        ArrayList<Node> current = new ArrayList<Node>(0);
+        current.add(this.getLeftChild());
+        ArrayList<Node> next = new ArrayList<Node>(0);
+        while(current.size() != 0){
+            nodes.addAll(current);
+            for (Node node : current) {
+                if(node.getLeftChild() != null){
+                    next.add(node.getLeftChild());
+                }
+                if(node.getRightChild() != null){
+                    next.add(node.getRightChild());
+                }
+            }
+            current = new ArrayList<Node>(next);
+            next = new ArrayList<Node>(0);
         }
-        return arr;
+        ArrayList<Integer> result = new ArrayList<Integer>(0);
+        result.add(this.getData());
+        for (Node node : nodes) {
+            result.add(node.getData());
+        }
+        return result;
     }
 
     //get the values of the right sub-tree of a given node
     //used in Tree.isSearchTree()
-    public ArrayList<Integer> getVRightSubTree() {
-        ArrayList<Integer> arr = new ArrayList<Integer>(0);
-        Node current = this;
-        while(current.getRightChild() != null){
-            arr.add(current.getRightChild().getData());
-            current = current.getRightChild();
+    public ArrayList<Integer> getVRightSubTree() { //this needs to be fixed
+        ArrayList<Node> nodes = new ArrayList<Node>(0);
+        ArrayList<Node> current = new ArrayList<Node>(0);
+        current.add(this.getRightChild());
+        ArrayList<Node> next = new ArrayList<Node>(0);
+        while(current.size() != 0){
+            nodes.addAll(current);
+            for (Node node : current) {
+                if(node.getLeftChild() != null){
+                    next.add(node.getLeftChild());
+                }
+                if(node.getRightChild() != null){
+                    next.add(node.getRightChild());
+                }
+            }
+            current = new ArrayList<Node>(next);
+            next = new ArrayList<Node>(0);
         }
-        return arr;
+        ArrayList<Integer> result = new ArrayList<Integer>(0);
+        result.add(this.getData());
+        for (Node node : nodes) {
+            result.add(node.getData());
+        }
+        return result;
     }
 
     //get the right sub-tree of a given node
