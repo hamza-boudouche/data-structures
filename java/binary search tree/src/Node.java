@@ -162,17 +162,7 @@ public class Node {
         return !this.line(tree);
     }
 
-    public Node uncle(Tree tree) {
-        // algorithm:
-        // if node is right child
-        // --return node.parent.left
-        // return node.parent.right
-        if (this.isRightChild(tree)) {
-            return this.parent(tree).getLeftChild();
-        }
-        return this.parent(tree).getRightChild();
-    }
-
+    
     // rotations
 
     public void leftRotation(Tree tree) {
@@ -212,30 +202,4 @@ public class Node {
             }
         }
     }
-}
-
-class opNode extends Node {
-    enum Operation {
-        ADD, SUB, MUL, DIV
-    }
-
-    private Operation operation = null;
-
-    opNode(int key) {
-        super(key);
-    }
-
-    opNode(int key, Operation operation) {
-        super(key);
-        this.operation = operation;
-    }
-
-    public Operation getOperation() {
-        return operation;
-    }
-
-    public void setOperation(Operation operation) {
-        this.operation = operation;
-    }
-
 }
